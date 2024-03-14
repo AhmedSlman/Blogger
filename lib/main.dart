@@ -1,3 +1,4 @@
+import 'package:blogger/core/commen/cubits/appUserCubit/app_user_cubit.dart';
 import 'package:blogger/core/routes/app_router.dart';
 import 'package:blogger/core/theme/theme.dart';
 import 'package:blogger/features/auth/presentation/bloc/auth_bloc.dart';
@@ -10,14 +11,30 @@ void main() async {
   await initDependencies();
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+      BlocProvider(
+        create: (_) => serviceLocator<AppUserCubit>(),
+      ),
+      BlocProvider(
+        create: (_) => serviceLocator<AuthBloc>(),
+      ),
     ],
     child: const MyApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+  }
 
   @override
   Widget build(BuildContext context) {

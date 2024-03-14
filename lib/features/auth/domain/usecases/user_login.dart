@@ -3,7 +3,7 @@ import 'package:blogger/core/usecase/use_case.dart';
 import 'package:blogger/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-import '../entities/user_entity.dart';
+import '../../../../core/commen/entities/user_entity.dart';
 
 class UserLogin implements UseCase<User, UserloginParams> {
   final AuthRepository authRepository;

@@ -1,11 +1,7 @@
 import 'package:blogger/core/functions/custom_navigat.dart';
-import 'package:blogger/core/functions/show_snackbar.dart';
 import 'package:blogger/core/routes/router_names.dart';
-import 'package:blogger/core/widgets/loading_widget.dart';
-import 'package:blogger/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blogger/features/auth/presentation/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/auth_header_text.dart';
 import '../widgets/have_an_acount.dart';
