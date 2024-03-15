@@ -5,7 +5,7 @@ import 'package:blogger/core/routes/router_names.dart';
 import 'package:blogger/features/blog/presentation/widgets/blog_editor.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/topic_sroll_widget.dart';
+import '../../../../core/utils/app_colors.dart';
 import '../widgets/select_image_widget.dart';
 
 class AddNewBlogPage extends StatefulWidget {
@@ -18,6 +18,9 @@ class AddNewBlogPage extends StatefulWidget {
 class _AddNewBlogPageState extends State<AddNewBlogPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  List<String> selectedTopics = [];
+
   @override
   void dispose() {
     super.dispose();
@@ -37,7 +40,10 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              if (formKey.currentState!.validate() &&
+                  selectedTopics.isNotEmpty) {}
+            },
             icon: const Icon(Icons.done_rounded),
           )
         ],
@@ -49,18 +55,63 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
             children: [
               const SelectImageWidget(),
               const SizedBox(height: 20),
-              const TopicsScrollWidget(),
-              const SizedBox(height: 10),
-              BlogEditorTextFormField(
-                controller: titleController,
-                hintText: 'Blog Title',
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: [
+                  'Technology',
+                  'Business',
+                  'Programming',
+                  'Entertainment',
+                ]
+                        .map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (selectedTopics.contains(e)) {
+                                  selectedTopics.remove(e);
+                                } else {
+                                  selectedTopics.add(e);
+                                }
+                                setState(() {});
+                              },
+                              child: Chip(
+                                backgroundColor: selectedTopics.contains(e)
+                                    ? AppColors.gradient1
+                                    : null,
+                                label: Text(e),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                side: selectedTopics.contains(e)
+                                    ? null
+                                    : const BorderSide(
+                                        color: AppColors.borderColor,
+                                      ),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList()),
               ),
               const SizedBox(height: 10),
-              BlogEditorTextFormField(
-                controller: contentController,
-                hintText: 'Blog Content',
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    BlogEditorTextFormField(
+                      controller: titleController,
+                      hintText: 'Blog Title',
+                    ),
+                    const SizedBox(height: 10),
+                    BlogEditorTextFormField(
+                      controller: contentController,
+                      hintText: 'Blog Content',
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
               ),
-              const SizedBox(height: 30),
             ],
           ),
         ),

@@ -3,7 +3,6 @@ import 'package:blogger/core/routes/router_names.dart';
 import 'package:blogger/features/auth/presentation/pages/login_page.dart';
 import 'package:blogger/features/auth/presentation/pages/sign_up_page.dart';
 import 'package:blogger/features/blog/presentation/pages/add_new_blog_page.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

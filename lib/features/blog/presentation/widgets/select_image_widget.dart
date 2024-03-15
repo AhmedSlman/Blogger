@@ -47,7 +47,6 @@ class _SelectImageWidgetState extends State<SelectImageWidget> {
           : GestureDetector(
               onTap: () {
                 selectImage();
-                print("wwwwwwwwwwwwwwwwwwwwwwwww");
               },
               child: DottedBorder(
                 color: AppColors.borderColor,
