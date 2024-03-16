@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
+File? image;
+
 class SelectImageWidget extends StatefulWidget {
   const SelectImageWidget({
     super.key,
@@ -18,7 +20,6 @@ class SelectImageWidget extends StatefulWidget {
 }
 
 class _SelectImageWidgetState extends State<SelectImageWidget> {
-  File? image;
   void selectImage() async {
     final pickImage = await picImage();
     setState(() {

@@ -1,10 +1,25 @@
 import 'package:blogger/core/functions/custom_navigat.dart';
+import 'package:blogger/core/functions/show_snackbar.dart';
 import 'package:blogger/core/routes/router_names.dart';
+import 'package:blogger/core/widgets/loading_widget.dart';
+import 'package:blogger/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BlogPage extends StatelessWidget {
+class BlogPage extends StatefulWidget {
   const BlogPage({super.key});
+
+  @override
+  State<BlogPage> createState() => _BlogPageState();
+}
+
+class _BlogPageState extends State<BlogPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<BlogBloc>().add(BlogFetchAllBlogs());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +36,28 @@ class BlogPage extends StatelessWidget {
             icon: const Icon(CupertinoIcons.add_circled),
           )
         ],
+      ),
+      body: BlocConsumer<BlogBloc, BlogState>(
+        listener: (BuildContext context, Object? state) {
+          if (state is BlogFailure) {
+            showSnackBar(context, state.error);
+          }
+        },
+        builder: (context, state) {
+          if (state is BlogLoading) {
+            return const LoaderWidget();
+          }
+          if (state is BlogDisplaySuccess) {
+            return ListView.builder(
+              itemCount: state.blogs.length,
+              itemBuilder: (context, index) {
+                final blog = state.blogs[index];
+                return Text(blog.title);
+              },
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
   }
