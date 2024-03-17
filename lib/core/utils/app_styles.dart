@@ -9,4 +9,16 @@ abstract class AppStyles {
     fontSize: 17,
     fontWeight: FontWeight.w600,
   );
+  static const s22 = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+  );
+  static const s24 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+  static const s16 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
 }

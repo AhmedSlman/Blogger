@@ -3,4 +3,5 @@ abstract class RouterNames {
   static const signUpPage = "/signUpPage";
   static const blogPage = "/blogPage";
   static const addNewBlogPage = "/addNewBlogPage";
+  static const blogViewerPage = "/blogViwePage";
 }

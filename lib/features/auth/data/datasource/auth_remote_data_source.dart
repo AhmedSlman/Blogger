@@ -37,7 +37,9 @@ class AuthRemoteDataSourceImple implements AuthRemoteDataSource {
         throw ServerException("User is null");
       }
       return UserModel.fromJson(response.user!.toJson());
-    } on Exception catch (e) {
+    } on AuthException catch (e) {
+      throw ServerException(e.toString());
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }
@@ -60,7 +62,9 @@ class AuthRemoteDataSourceImple implements AuthRemoteDataSource {
         throw ServerException("User is null");
       }
       return UserModel.fromJson(response.user!.toJson());
-    } on Exception catch (e) {
+    } on AuthException catch (e) {
+      throw ServerException(e.toString());
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }
